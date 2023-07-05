@@ -11,7 +11,7 @@
     <name>contact-application-parent</name>
 
     <modules>
-
+        <module>contact-service</module>
 
     </modules>
 
