@@ -1,4 +1,4 @@
-CREATE TABLE if not exists public.phone_number (
+CREATE TABLE IF NOT EXISTS public.phone_number (
     phone_id uuid NOT NULL,
     phone varchar(100) NOT NULL,
     contact_id uuid NOT NULL,

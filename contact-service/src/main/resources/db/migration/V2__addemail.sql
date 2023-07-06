@@ -1,4 +1,4 @@
-CREATE TABLE if not exists public.email_address (
+CREATE TABLE IF NOT EXISTS public.email_address (
     email_id uuid NOT NULL,
     email varchar(100) NOT NULL,
     contact_id uuid NOT NULL,
