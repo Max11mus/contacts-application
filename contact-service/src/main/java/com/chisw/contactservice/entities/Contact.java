@@ -28,6 +28,11 @@ public class Contact {
     @Column(name = "contact_id", updatable = false)
     private UUID id;
 
+
+    @Column(name = "owner_id")
+    @NotBlank(message = "Owner_id is required")
+    private UUID ownerId;
+
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must be at most 100 characters")
     @Column(name = "contact_name", nullable = false, unique = true)
