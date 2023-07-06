@@ -4,9 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -18,12 +25,20 @@ public class Contact {
 
     @Id
     @GeneratedValue
-    @Column(name = "id", updatable = false)
+    @Column(name = "contact_id", updatable = false)
     private UUID id;
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must be at most 100 characters")
-    @Column(name = "name", nullable = false)
+    @Column(name = "contact_name", nullable = false, unique = true)
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "contact_id")
+    private Set<PhoneNumber> phoneNumbers;
+
+    @OneToMany
+    @JoinColumn(name = "contact_id")
+    private Set<EmailAddress> emailAddresses;
 
 }
