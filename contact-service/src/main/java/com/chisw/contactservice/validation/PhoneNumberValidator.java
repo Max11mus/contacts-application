@@ -1,16 +1,16 @@
 package com.chisw.contactservice.validation;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumberValid, String> {
-    private static final String PHONE_NUMBER_REGEX = "^tel:[+]?(\\d{1,})(-\\d{1,})*$";
-    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
+    private static final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -18,7 +18,14 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumberVali
             return false;
         }
 
-        Matcher matcher = PHONE_NUMBER_PATTERN.matcher(value);
-        return matcher.matches();
+        try {
+            Phonenumber.PhoneNumber parsedNumber = phoneNumberUtil.parse(value, null);
+            boolean isValidNumber = phoneNumberUtil.isValidNumber(parsedNumber);
+
+            return isValidNumber;
+
+        } catch (NumberParseException e) {
+            return false;
+        }
     }
 }

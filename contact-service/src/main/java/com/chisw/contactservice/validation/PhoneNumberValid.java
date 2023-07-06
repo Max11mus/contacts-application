@@ -17,8 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = PhoneNumberValidator.class)
 @Documented
 public @interface PhoneNumberValid {
-    String message() default "${validatedValue}  isn't correct RFC3966" +
-            " Phone Numner. See https://datatracker.ietf.org/doc/html/rfc3966";
+    String message() default "${validatedValue}  isn't correct phone number";
 
     Class<?>[] groups() default {};
 
